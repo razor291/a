@@ -1,0 +1,45 @@
+
+name: Build Playnite extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Set up NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore packages
+        run: nuget restore CSRinEnhanced.csproj
+
+      - name: Build extension
+        run: msbuild CSRinEnhanced.csproj /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Package extension
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path package
+          Copy-Item extension.yaml package/
+          Get-ChildItem -Recurse -Filter CSRinEnhanced.dll |
+            Where-Object { $_.FullName -match '\\bin\\Release\\' } |
+            Select-Object -First 1 |
+            ForEach-Object { Copy-Item $_.FullName package/ }
+          if (!(Test-Path package/CSRinEnhanced.dll)) {
+            throw "CSRinEnhanced.dll was not found after building."
+          }
+          Compress-Archive -Path package/* -DestinationPath CSRinEnhanced-Playnite-install.zip
+
+      - name: Upload install package
+        uses: actions/upload-artifact@v4
+        with:
+          name: CSRinEnhanced-Playnite-install
+          path: CSRinEnhanced-Playnite-install.zip
