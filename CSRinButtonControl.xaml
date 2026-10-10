@@ -1,0 +1,14 @@
+<ui:PluginUserControl x:Class="CSRinEnhanced.CSRinButtonControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="clr-namespace:Playnite.SDK.Controls;assembly=PlayniteSDK"
+    MinWidth="180">
+    <Border Padding="10" BorderThickness="1" BorderBrush="{DynamicResource TextBoxBorder}">
+        <StackPanel>
+            <TextBlock Text="CS.RIN.RU" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,6"/>
+            <TextBlock Text="Find the likely forum topic for this game." TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <Button Content="View on CS.RIN.RU" Padding="10,5" Click="SearchButton_Click"/>
+            <TextBlock Text="Opens your default browser." Opacity="0.7" FontSize="11" Margin="0,6,0,0"/>
+        </StackPanel>
+    </Border>
+</ui:PluginUserControl>

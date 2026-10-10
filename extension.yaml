@@ -1,0 +1,9 @@
+Id: CSRinEnhanced_Playnite
+Name: CS.RIN.RU Enhanced
+Author: OpenAI
+Version: 1.0.0
+Module: CSRinEnhanced.dll
+Type: GenericPlugin
+Links:
+  - Name: Original userscript
+    Url: https://github.com/Altansar69/CS.RIN.RU-Enhanced-external
